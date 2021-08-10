@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 // import { CounterWrapper, TipCounterText, TipCounter } from './TipAmount';
 
@@ -33,13 +34,20 @@ const TotalCounter = styled.span`
     font-size: 2.5rem;
 `;
 
-const TotalAmount = () => {
+const TotalAmount = ({total}) => {
     return (
         <CounterWrapper>
             <TotalCounterText>Total</TotalCounterText>
-            <TotalCounter>$4.27</TotalCounter>
+            <TotalCounter>${total}</TotalCounter>
         </CounterWrapper>
     )
 }
 
-export default TotalAmount;
+
+const mapStateToProps = (state) => {
+    return {
+        total: state.total
+    }
+}
+
+export default connect(mapStateToProps)(TotalAmount);

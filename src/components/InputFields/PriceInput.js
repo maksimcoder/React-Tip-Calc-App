@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { billInput } from '../../actions';
+import { billInput, showTotal, showTip } from '../../actions';
 import logo from './icon-dollar.svg';
 
 
@@ -38,9 +38,11 @@ const Input = styled.input`
 `; 
 
 
-const PriceInput = ({billInput, bill}) => {
+const PriceInput = ({billInput, showTotal, showTip, bill}) => {
     function handleChange(e) {
         billInput(e.target.value);
+        showTotal();
+        showTip();
     }
 
     return (
@@ -67,7 +69,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    billInput
+    billInput,
+    showTotal,
+    showTip
 }
 
 export {

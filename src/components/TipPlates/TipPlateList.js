@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { tipInput } from '../../actions';
+import { tipInput, showTotal, showTip } from '../../actions';
 import TipPlateItem from './TipPlateItem';
 
 
@@ -48,10 +48,9 @@ const TipInput = ({handleChange, value}) => {
 }
 
 
-const TipPlateList = ({activeTipPlate, tipInput, tip}) => {
-    const [inputValue, setInputValue] = useState('')
+const TipPlateList = ({activeTipPlate, tipInput, showTotal, showTip, tip}) => {
+    const [inputValue, setInputValue] = useState('');
     const dataArr = [5, 10, 15, 25, 50, <TipInput value={inputValue} handleChange={handleTipInput}/>];
-    console.log(tip);
     const elements = dataArr.map((item, i) => {
 
         const isActive = (activeTipPlate === i) ? true : false;
@@ -68,6 +67,8 @@ const TipPlateList = ({activeTipPlate, tipInput, tip}) => {
     function handleTipInput(e) {
         tipInput(e.target.value);
         setInputValue(e.target.value);
+        showTotal();
+        showTip();
     }
     
     return (
@@ -88,7 +89,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    tipInput
+    tipInput,
+    showTotal,
+    showTip
 }
 
 

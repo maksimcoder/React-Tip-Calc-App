@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 const CounterWrapper = styled.div`
@@ -30,13 +31,20 @@ const TipCounter = styled.span`
     font-size: 2.5rem;
 `;
 
-const TipAmount = () => {
+const TipAmount = ({tipAmount}) => {
     return (
         <CounterWrapper>
             <TipCounterText>Tip Amount</TipCounterText>
-            <TipCounter>$4.27</TipCounter>
+            <TipCounter>${tipAmount}</TipCounter>
         </CounterWrapper>
     )
+}
+
+
+const mapStateToProps = (state) => {
+    return {
+        tipAmount: state.tipAmount
+    }
 }
 
 export {
@@ -45,4 +53,4 @@ export {
     TipCounter
 }
 
-export default TipAmount;
+export default connect(mapStateToProps)(TipAmount);

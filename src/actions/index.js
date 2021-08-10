@@ -27,9 +27,30 @@ const tipChosen = (id, value) => {
     }
 }
 
+const showTotal = () => {
+    return {
+        type: 'SHOW_TOTAL'
+    }
+}
+
+const showTip = () => {
+    return {
+        type: 'SHOW_TIP'
+    }
+}
+
+const resetAll = () => {
+    return {
+        type: 'RESET'
+    }
+}
+
 export {
     billInput,
     peopleInput,
     tipInput,
-    tipChosen
+    tipChosen,
+    showTotal,
+    showTip,
+    resetAll
 }

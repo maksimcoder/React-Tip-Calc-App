@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { peopleInput } from '../../actions';
+import { peopleInput, showTotal, showTip } from '../../actions';
 import { InputLabel, InputWrapper, ImgWrapper, Input } from './PriceInput';
 import logo from './icon-person.svg';
 
@@ -13,15 +13,26 @@ const ErrorText = styled(InputLabel)`
 `;
 
 
-const PeopleInput = ({peopleInput, people}) => {
+const PeopleInput = ({peopleInput, showTotal, showTip, people}) => {
+    const [isShown, setShown] = useState(false);
+
     function handleChange(e) {
-        peopleInput(e.target.value);
+        const target = e.target.value;
+        if (+target < 1 ) {
+            setShown(true);
+        } else {
+            setShown(false);
+        }
+        
+        peopleInput(target);
+        showTotal();
+        showTip();
     }
 
     return (
         <>
             <InputLabel> Number of People
-                <ErrorText >Can't be zero!</ErrorText>
+                <ErrorText show={isShown}>Can't be zero!</ErrorText>
             </InputLabel>
             <InputWrapper>
                 <ImgWrapper>
@@ -45,7 +56,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    peopleInput
+    peopleInput,
+    showTotal,
+    showTip
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PeopleInput);

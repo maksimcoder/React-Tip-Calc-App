@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { resetAll } from '../../actions';
 
 const ResetBtn = styled.button`
     outline: none;
@@ -15,10 +17,23 @@ const ResetBtn = styled.button`
     filter: ${props => props.active ? null : 'opacity(10%)'};
 `;
 
-const Btn = () => {
+const Btn = ({resetAll, bill}) => {
+    const isActive = bill ? true : false
     return (
-        <ResetBtn >RESET</ResetBtn>
+        <ResetBtn 
+            active={isActive}
+            onClick={resetAll} >RESET</ResetBtn>
     )
 }
 
-export default Btn;
+const mapStateToProps = (state) => {
+    return {
+        bill: state.bill
+    }
+}
+
+const mapDispatchToProps = {
+    resetAll
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Btn);

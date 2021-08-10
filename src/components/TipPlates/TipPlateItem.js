@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { tipChosen } from '../../actions';
+import { tipChosen, showTotal, showTip } from '../../actions';
 
 const activeProperties = {
     background: 'hsl(172, 67%, 45%)',
@@ -40,13 +40,13 @@ const TipPlate = styled.li`
 
 
 
-const TipPlateItem = ({active = false, id, tipChosen, children}) => {
+const TipPlateItem = ({active = false, id, tipChosen, showTotal, showTip, children}) => {
 
 
     function handleClick() {
-
-
         tipChosen(id, children[0]);
+        showTotal();
+        showTip();
     }
     
     return (
@@ -60,7 +60,9 @@ const TipPlateItem = ({active = false, id, tipChosen, children}) => {
 
 
 const mapDispatchToProps = {
-    tipChosen
+    tipChosen,
+    showTotal,
+    showTip
 }
 
 export default connect(null, mapDispatchToProps)(TipPlateItem);
